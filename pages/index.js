@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import Head from 'next/head'
 import Gallery from "react-photo-gallery";
-import withWidth, {isWidthUp} from '@material-ui/core/withWidth';
-import React, {useEffect, useState} from 'react'
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import React, { useEffect, useState } from 'react'
 import { Brightness4 } from '@material-ui/icons/';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,14 +21,31 @@ const useStyles = makeStyles((t) => ({
 }));
 
 export default withWidth()(function Home(props) {
-    const {width} = props
+    const { width } = props
     const pc = isWidthUp('lg', width)
     const [theme, setTheme] = useState(dark_color)
+    const [open, setOpen] = useState(false)
+    const [widthSize, setWidth] = useState(0)
+    const [heightSize, setHeight] = useState(0)
+    const [current, setCurrent] = useState('')
     const classes = useStyles();
+
+    const maxSize = 800
 
     useEffect(() => {
         const tmp = localStorage.getItem('theme')
         if (tmp !== null) setTheme(tmp)
+        if (window.innerWidth >= maxSize) {
+            setWidth(window.innerWidth / 2)
+        } else setWidth(window.innerWidth)
+        setHeight(window.innerHeight)
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= maxSize) {
+                setWidth(window.innerWidth / 2)
+            } else setWidth(window.innerWidth)
+            setHeight(window.innerHeight)
+            
+        });
     }, [])
 
     return (
@@ -44,30 +61,65 @@ export default withWidth()(function Home(props) {
           color="primary"
           aria-label="add"
           onClick={() => {
-              if (theme === dark_color) {
-                  setTheme(white_color)
-                  localStorage.setItem('theme', dark_color)
-              } else {
-                  setTheme(dark_color)
-                  localStorage.setItem('theme', dark_color)
-              }
+            if (theme === dark_color) {
+                setTheme(white_color)
+                localStorage.setItem('theme', dark_color)
+            } else {
+                setTheme(dark_color)
+                localStorage.setItem('theme', dark_color)
+            }
         }}
         >
           <Brightness4 />
         </Fab>
 
         <main>
-          <h1 style={{lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color}}>
-            {`@${userInfo.username}`}
-          </h1>
+          {
+                    !open ? (
+                      <div>
+                        <h1 style={{ lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+                          {`@${userInfo.username}`}
+                        </h1>
 
-          <p style={{lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color}}>
-            {userInfo.description}
-          </p>
+                        <p style={{ lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+                          {userInfo.description}
+                        </p>
 
-          <div style={{marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10}}>
-            <Gallery photos={tileData} onClick={(e, {index}) => {console.log(tileData[index])}} />
-          </div>
+                        <div style={{ marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10 }}>
+                          <Gallery
+                            photos={tileData}
+                            onClick={(e, { index }) => {
+                                setOpen(true)
+                                setCurrent(tileData[index].src);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )
+                        : 
+                        (
+                          <div
+                            role='presentation'
+                            onClick={() =>
+                                    setOpen(false)}
+                            onKeyDown={() => {
+                                    setOpen(false)
+                                }}
+                            style={{
+                                    position: 'absolute', left: '50%', top: '50%',
+                                    transform: 'translate(-50%, -50%)'
+                                }}
+                          >
+                                
+                            <img
+                              
+                              src={current}
+                              alt="fullscreen"
+                              style={{ height: '100%', width: widthSize }}
+                            />
+                          </div>
+                    )
+                }
         </main>
 
         <style jsx global>
