@@ -1,84 +1,36 @@
 import Head from 'next/head'
-import ImageGridList from "../components/photos";
+import Gallery from "react-photo-gallery";
+import withWidth, {isWidthUp} from '@material-ui/core/withWidth';
+import userInfo from "../util/userinfo.json"
+import tileData from "./api/pic.json"
 
-export default function Home() {
+export default withWidth()(function Home(props) {
+    const {width} = props
+    const pc = isWidthUp('lg', width)
     return (
-        <div className="container">
-            <Head>
-                <title>@kernoeb</title>
-                <link rel="icon" href="/favicon.ico"/>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
+      <div>
+        <Head>
+          <title>{`@${userInfo.username}`}</title>
+          <link rel="icon" href="/favicon.ico" />
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
 
-            <main>
-                <h1 className="title">
-                    @kernoeb
-                </h1>
+        <main>
+          <h1 style={{lineHeight: 1.15, fontSize: '4rem', textAlign: 'center'}}>
+            {`@${userInfo.username}`}
+          </h1>
 
-                <p className="description">
-                    J'ai récemment supprimé Instagram, et Pixelfed ne me plaît pas alors me voilà ici
-                </p>
+          <p style={{lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center'}}>
+            {userInfo.description}
+          </p>
 
-                <div className="grid" >
-                    <ImageGridList />
-                </div>
-            </main>
+          <div style={{marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10}}>
+            <Gallery photos={tileData} onClick={(e, {index}) => {console.log(tileData[index])}} />
+          </div>
+        </main>
 
-            <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-        
-        @media (max-width: 600px) {
-          .description {
-            margin-left: 80px;
-            margin-right: 80px;
-          }
-        }
-      `}</style>
-
-            <style jsx global>{`
+        <style jsx global>
+          {`
         html,
         body {
           padding: 0;
@@ -91,7 +43,8 @@ export default function Home() {
         * {
           box-sizing: border-box;
         }
-      `}</style>
-        </div>
-)
-}
+      `}
+        </style>
+      </div>
+    )
+})
