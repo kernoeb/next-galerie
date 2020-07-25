@@ -11,7 +11,7 @@ import tileData from "./api/pic.json"
 
 const useStyles = makeStyles((t) => ({
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: t.spacing(2),
         right: t.spacing(2),
     }
