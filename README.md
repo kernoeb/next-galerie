@@ -1,4 +1,16 @@
+# simple-gallery (Next.js)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+Modules :
+- react-photo-gallery
+- @material-ui/icons
+
+## Usage
+
+Add your pictures in `/public/assets/` with this template `mm/yyyy_number.jpg` *(ex: 01-2019_1.jpg)*
+
+Run `node util/genPic.js public/assets/`
 
 ## Getting Started
 
