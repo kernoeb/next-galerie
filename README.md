@@ -1,10 +1,21 @@
-# simple-gallery (Next.js)
+# next-gallery (Next.js)
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a really simple [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+I just wanted to show my pictures somewhere after deleteing my Instagram account. I tried Pixelfed, but but I wanted something open-source and really light. 
 
 Modules :
-- react-photo-gallery
+- react-photo-gallery (I was using a material-ui grid before, until I found this module)
 - @material-ui/icons
+
+
+## Before anything
+
+It's a really simple project, don't blame me !
+
+You can make a PR or create an issue to add ideas, etc
+
+There's no API, server, etc, so I decided to code a Node.js script to automate the creation of a JSON file with data (picture resolution, name, date, etc...)
+
 
 ## Usage
 

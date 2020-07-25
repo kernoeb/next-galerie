@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Head from 'next/head'
 import Gallery from "react-photo-gallery";
 import withWidth, {isWidthUp} from '@material-ui/core/withWidth';
@@ -5,9 +6,11 @@ import React, {useEffect, useState} from 'react'
 import { Brightness4 } from '@material-ui/icons/';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-
 import userInfo from "../util/userinfo.json"
 import tileData from "./api/pic.json"
+
+const dark_color = '#000000'
+const white_color = '#ffffff'
 
 const useStyles = makeStyles((t) => ({
     fab: {
@@ -20,7 +23,7 @@ const useStyles = makeStyles((t) => ({
 export default withWidth()(function Home(props) {
     const {width} = props
     const pc = isWidthUp('lg', width)
-    const [theme, setTheme] = useState('black')
+    const [theme, setTheme] = useState(dark_color)
     const classes = useStyles();
 
     useEffect(() => {
@@ -41,12 +44,12 @@ export default withWidth()(function Home(props) {
           color="primary"
           aria-label="add"
           onClick={() => {
-              if (theme === 'black') {
-                  setTheme('white')
-                  localStorage.setItem('theme', 'white')
+              if (theme === dark_color) {
+                  setTheme(white_color)
+                  localStorage.setItem('theme', dark_color)
               } else {
-                  setTheme('black')
-                  localStorage.setItem('theme', 'black')
+                  setTheme(dark_color)
+                  localStorage.setItem('theme', dark_color)
               }
         }}
         >
@@ -54,11 +57,11 @@ export default withWidth()(function Home(props) {
         </Fab>
 
         <main>
-          <h1 style={{lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === 'black' ? 'white' : 'black'}}>
+          <h1 style={{lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color}}>
             {`@${userInfo.username}`}
           </h1>
 
-          <p style={{lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === 'black' ? 'white' : 'black'}}>
+          <p style={{lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color}}>
             {userInfo.description}
           </p>
 
