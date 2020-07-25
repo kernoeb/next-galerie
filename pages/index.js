@@ -24,7 +24,8 @@ export default withWidth()(function Home(props) {
     const classes = useStyles();
 
     useEffect(() => {
-        setTheme(localStorage.getItem('theme'))
+        const tmp = localStorage.getItem('theme')
+        if (tmp !== null) setTheme(tmp)
     }, [])
 
     return (
