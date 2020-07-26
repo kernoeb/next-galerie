@@ -35,7 +35,7 @@ const styles = {
         justifyContent: "center"
     },
     overlay: {
-        backgroundColor: "#1cccc",
+        backgroundColor: "rgba(10, 11, 11, 0.93)",
         padding: 0
     },
     closeIcon: {
