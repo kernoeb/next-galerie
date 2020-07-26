@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Gallery from "react-photo-gallery";
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import React, { useEffect, useState } from 'react'
-import { Brightness4 } from '@material-ui/icons/';
+import { Brightness4, WbIncandescent } from '@material-ui/icons/';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
 import { Modal } from 'react-responsive-modal';
@@ -94,7 +94,7 @@ export default withWidth()(function Home(props) {
             }
         }}
         >
-          <Brightness4 />
+        { theme === white_color ? <Brightness4 /> : <WbIncandescent /> }
         </Fab>
 
         <Modal open={open} onClose={() => setOpen(false)} center styles={styles}>
@@ -126,7 +126,7 @@ export default withWidth()(function Home(props) {
               {`@${userInfo.username}`}
             </h1>
 
-            <p style={{ lineHeight: 1.7, fontSize: '1.2rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+            <p style={{ lineHeight: 1.5, marginBottom: 40, fontSize: '1.2rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
               {userInfo.description}
             </p>
 
@@ -138,6 +138,7 @@ export default withWidth()(function Home(props) {
                     setCurrent(tileData[index].src);
                 }}
               />
+              <br />
             </div>
           </div>
                 
