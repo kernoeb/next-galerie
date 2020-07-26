@@ -49,7 +49,7 @@ export default withWidth()(function Home(props) {
     const [theme, setTheme] = useState(dark_color)
     const [open, setOpen] = useState(false)
     const [widthSize, setWidth] = useState(0)
-    const [heightSize, setHeight] = useState(0)
+    // const [heightSize, setHeight] = useState(0)
     const [current, setCurrent] = useState('')
     const classes = useStyles();
 
@@ -62,18 +62,18 @@ export default withWidth()(function Home(props) {
         if (window.innerWidth >= maxSize) {
             setWidth(window.innerWidth / 2)
         } else setWidth(window.innerWidth)
-        setHeight(window.innerHeight)
+        // setHeight(window.innerHeight)
         window.addEventListener('resize', () => {
             if (window.innerWidth >= maxSize) {
                 setWidth(window.innerWidth / 2)
             } else setWidth(window.innerWidth)
-            setHeight(window.innerHeight)
-            
+            // setHeight(window.innerHeight)
         });
     }, [])
 
     return (
-      <div>
+      <div className="container">
+        <div className="force-overflow"></div>
         <Head>
           <title>{`@${userInfo.username}`}</title>
           <link rel="icon" href="/favicon.ico" />
@@ -122,11 +122,11 @@ export default withWidth()(function Home(props) {
 
         <main>
           <div>
-            <h1 style={{ lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+            <h1 className="title" style={{ lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
               {`@${userInfo.username}`}
             </h1>
 
-            <p style={{ lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+            <p style={{ lineHeight: 1.7, fontSize: '1.2rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
               {userInfo.description}
             </p>
 
@@ -157,8 +157,29 @@ export default withWidth()(function Home(props) {
             sans-serif;
         }
 
+        body::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: ${theme};
+        }
+
+        body::-webkit-scrollbar {
+            width: 3px;
+            background-color: ${theme};
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: ${theme === dark_color ? white_color : dark_color};
+        }
+        .container {
+            overflow-y: hidden;
+        }
+
+
         * {
           box-sizing: border-box;
+        }
+        .title {
+            margin-block-end: 0
         }
       `}
         </style>
