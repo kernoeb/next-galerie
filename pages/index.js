@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { Brightness4 } from '@material-ui/icons/';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
+import { Modal } from 'react-responsive-modal';
 import userInfo from "../util/userinfo.json"
 import tileData from "./api/pic.json"
 
@@ -20,6 +21,28 @@ const useStyles = makeStyles((t) => ({
     }
 }));
 
+const styles = {
+    modal: {
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        display: "flex",
+        overflow: "none",
+        width: "100%",
+        padding: "0",
+        margin: "0",
+        height: "100%",
+        minWidth: "100%",
+        justifyContent: "center"
+    },
+    overlay: {
+        backgroundColor: "#1cccc",
+        padding: 0
+    },
+    closeIcon: {
+        fill: "#fff"
+    }
+};
+
 export default withWidth()(function Home(props) {
     const { width } = props
     const pc = isWidthUp('lg', width)
@@ -30,7 +53,8 @@ export default withWidth()(function Home(props) {
     const [current, setCurrent] = useState('')
     const classes = useStyles();
 
-    const maxSize = 800
+    const maxSize = 950;
+
 
     useEffect(() => {
         const tmp = localStorage.getItem('theme')
@@ -73,54 +97,53 @@ export default withWidth()(function Home(props) {
           <Brightness4 />
         </Fab>
 
+        <Modal open={open} onClose={() => setOpen(false)} center styles={styles}>
+          <div
+            role='presentation'
+            onClick={() =>
+                        setOpen(false)}
+            onKeyDown={() => {
+                        setOpen(false)
+                    }}
+            style={{
+                        position: 'absolute', left: '50%', top: '50%',
+                        transform: 'translate(-50%, -50%)'
+                    }}
+          >
+
+            <img
+
+              src={current}
+              alt="fullscreen"
+              style={{ height: '100%', width: widthSize }}
+            />
+          </div>
+        </Modal>
+
         <main>
-          {
-                    !open ? (
-                      <div>
-                        <h1 style={{ lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
-                          {`@${userInfo.username}`}
-                        </h1>
+          <div>
+            <h1 style={{ lineHeight: 1.15, fontSize: '4rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+              {`@${userInfo.username}`}
+            </h1>
 
-                        <p style={{ lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
-                          {userInfo.description}
-                        </p>
+            <p style={{ lineHeight: 1.5, fontSize: '1.5rem', textAlign: 'center', color: theme === dark_color ? white_color : dark_color }}>
+              {userInfo.description}
+            </p>
 
-                        <div style={{ marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10 }}>
-                          <Gallery
-                            photos={tileData}
-                            onClick={(e, { index }) => {
-                                setOpen(true)
-                                setCurrent(tileData[index].src);
-                            }}
-                          />
-                        </div>
-                      </div>
-                    )
-                        : 
-                        (
-                          <div
-                            role='presentation'
-                            onClick={() =>
-                                    setOpen(false)}
-                            onKeyDown={() => {
-                                    setOpen(false)
-                                }}
-                            style={{
-                                    position: 'absolute', left: '50%', top: '50%',
-                                    transform: 'translate(-50%, -50%)'
-                                }}
-                          >
-                                
-                            <img
-                              
-                              src={current}
-                              alt="fullscreen"
-                              style={{ height: '100%', width: widthSize }}
-                            />
-                          </div>
-                    )
-                }
+            <div style={{ marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10 }}>
+              <Gallery
+                photos={tileData}
+                onClick={(e, { index }) => {
+                    setOpen(true)
+                    setCurrent(tileData[index].src);
+                }}
+              />
+            </div>
+          </div>
+                
+          
         </main>
+            
 
         <style jsx global>
           {`
