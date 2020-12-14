@@ -43,7 +43,7 @@ const styles = {
     }
 };
 
-export default withWidth()(function Home(props) {
+export default withWidth()((props) => {
     const { width } = props
     const pc = isWidthUp('lg', width)
     const [theme, setTheme] = useState(dark_color)
@@ -62,18 +62,16 @@ export default withWidth()(function Home(props) {
         if (window.innerWidth >= maxSize) {
             setWidth(window.innerWidth / 2)
         } else setWidth(window.innerWidth)
-        // setHeight(window.innerHeight)
         window.addEventListener('resize', () => {
             if (window.innerWidth >= maxSize) {
                 setWidth(window.innerWidth / 2)
             } else setWidth(window.innerWidth)
-            // setHeight(window.innerHeight)
         });
     }, [])
 
     return (
       <div className="container">
-        <div className="force-overflow"></div>
+        <div className="force-overflow" />
         <Head>
           <title>{`@${userInfo.username}`}</title>
           <link rel="icon" href="/favicon.ico" />
@@ -94,7 +92,7 @@ export default withWidth()(function Home(props) {
             }
         }}
         >
-        { theme === white_color ? <Brightness4 /> : <WbIncandescent /> }
+          { theme === white_color ? <Brightness4 /> : <WbIncandescent /> }
         </Fab>
 
         <Modal open={open} onClose={() => setOpen(false)} center styles={styles}>
@@ -112,7 +110,6 @@ export default withWidth()(function Home(props) {
           >
 
             <img
-
               src={current}
               alt="fullscreen"
               style={{ height: '100%', width: widthSize }}
@@ -141,10 +138,10 @@ export default withWidth()(function Home(props) {
               <br />
             </div>
           </div>
-                
-          
+
+
         </main>
-            
+
 
         <style jsx global>
           {`
