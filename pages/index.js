@@ -26,7 +26,6 @@ const styles = {
         backgroundColor: "transparent",
         boxShadow: "none",
         display: "flex",
-        overflow: "none",
         width: "100%",
         padding: "0",
         margin: "0",
@@ -69,19 +68,19 @@ export default withWidth()((props) => {
     }, [])
 
     return (
-      <div className="container">
-        <div className="force-overflow" />
-        <Head>
-          <title>{`@${userInfo.username}`}</title>
-          <link rel="icon" href="/favicon.ico" />
-          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        </Head>
+        <div className="container">
+            <div className="force-overflow"/>
+            <Head>
+                <title>{`@${userInfo.username}`}</title>
+                <link rel="icon" href="/favicon.ico"/>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
+            </Head>
 
-        <Fab
-          className={classes.fab}
-          color="primary"
-          aria-label="add"
-          onClick={() => {
+            <Fab
+                className={classes.fab}
+                color="primary"
+                aria-label="add"
+                onClick={() => {
                     if (theme === dark_color) {
                         setTheme(white_color)
                         localStorage.setItem('theme', dark_color)
@@ -90,75 +89,75 @@ export default withWidth()((props) => {
                         localStorage.setItem('theme', dark_color)
                     }
                 }}
-        >
-          {theme === white_color ? <Brightness4 /> : <WbIncandescent />}
-        </Fab>
+            >
+                {theme === white_color ? <Brightness4/> : <WbIncandescent/>}
+            </Fab>
 
-        <Modal open={open} onClose={() => setOpen(false)} center styles={styles}>
-          <div
-            role='presentation'
-            onClick={() =>
+            <Modal open={open} onClose={() => setOpen(false)} center styles={styles} blockScroll>
+                <div
+                    role='presentation'
+                    onClick={() =>
                         setOpen(false)}
-            onKeyDown={() => {
+                    onKeyDown={() => {
                         setOpen(false)
                     }}
-            style={{
+                    style={{
                         position: 'absolute', left: '50%', top: '50%',
                         transform: 'translate(-50%, -50%)'
                     }}
-          >
+                >
 
-            <img
-              src={current}
-              alt="fullscreen"
-              style={{height: '100%', width: widthSize}}
-            />
-          </div>
-        </Modal>
+                    <img
+                        src={current}
+                        alt="fullscreen"
+                        style={{height: '100%', width: widthSize}}
+                    />
+                </div>
+            </Modal>
 
-        <main>
-          <div>
-            <h1
-              className="title"
-              style={{
-                        lineHeight: 1.15,
-                        fontSize: '4rem',
-                        textAlign: 'center',
-                        color: theme === dark_color ? white_color : dark_color
-                    }}
-            >
-              {`@${userInfo.username}`}
-            </h1>
+            <main>
+                <div>
+                    <h1
+                        className="title"
+                        style={{
+                            lineHeight: 1.15,
+                            fontSize: '4rem',
+                            textAlign: 'center',
+                            color: theme === dark_color ? white_color : dark_color
+                        }}
+                    >
+                        {`@${userInfo.username}`}
+                    </h1>
 
-            <p style={{
+                    <p style={{
                         lineHeight: 1.5,
-                        marginBottom: 40,
+                        marginBottom: 35,
                         fontSize: '1.2rem',
                         textAlign: 'center',
                         color: theme === dark_color ? white_color : dark_color
                     }}
-            >
-              {userInfo.description}
-            </p>
+                    >
+                        {userInfo.description}
+                    </p>
 
-            <div style={{marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10}}>
-              <Gallery
-                photos={tileData}
-                onClick={(e, {index}) => {
+                    <div style={{marginLeft: pc ? 300 : 10, marginRight: pc ? 300 : 10}}>
+                        <Gallery
+                            photos={tileData}
+                            onClick={(e, {index}) => {
                                 setOpen(true)
                                 setCurrent(tileData[index].src);
                             }}
-              />
-              <br />
-            </div>
-          </div>
+                        />
+                        <br/>
+                    </div>
+                </div>
 
 
-        </main>
+            </main>
 
 
-        <style jsx global>
-          {`
+            <style jsx global>
+                {`
                   html,
                   body {
                     background-color: ${theme};
@@ -167,6 +166,10 @@ export default withWidth()((props) => {
                     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
                     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
                     sans-serif;
+                  }
+                  
+                  .react-responsive-modal-container {
+                    overflow-y: hidden;
                   }
 
                   body::-webkit-scrollbar-track {
@@ -182,12 +185,7 @@ export default withWidth()((props) => {
                   body::-webkit-scrollbar-thumb {
                     background-color: ${theme === dark_color ? white_color : dark_color};
                   }
-
-                  .container {
-                    overflow-y: hidden;
-                  }
-
-
+                  
                   * {
                     box-sizing: border-box;
                   }
@@ -196,7 +194,7 @@ export default withWidth()((props) => {
                     margin-block-end: 0
                   }
                 `}
-        </style>
-      </div>
+            </style>
+        </div>
     )
 })
